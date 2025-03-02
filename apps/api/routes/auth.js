@@ -33,7 +33,10 @@ authRouter.post("/login", async (req, res) => {
       },
     });
     if (user.password === password) {
-      const accessToken = jwt.sign({ userId: user.id }, "karthik");
+      const accessToken = jwt.sign(
+        { userId: user.id },
+        process.env.AUTH_SECRET
+      );
       console.log("saf");
       res.cookie("access_token", accessToken, { httpOnly: true });
       res.status(200).end("User login successful");
@@ -84,7 +87,8 @@ const isAuth = async (req, res, next) => {
 const resolveUser = async (accessToken) => {
   // Get the user from the acess token
   try {
-    const userId = await jwt.decode(accessToken, "karthik").userId;
+    const userId = await jwt.decode(accessToken, process.env.AUTH_SECRET)
+      .userId;
     const user = await prisma.user.findUnique({
       where: {
         id: userId,

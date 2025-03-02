@@ -18,13 +18,6 @@ app.use(
     credentials: true,
   })
 );
-app.use(
-  session({
-    secret: "karthik",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
 
 app.use("/auth", authRouter);
 app.use("/group", groupRouter);
