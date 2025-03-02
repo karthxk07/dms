@@ -38,7 +38,11 @@ authRouter.post("/login", async (req, res) => {
         process.env.AUTH_SECRET
       );
       console.log("saf");
-      res.cookie("access_token", accessToken, { httpOnly: true });
+      res.cookie("access_token", accessToken, {
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+      });
       res.status(200).end("User login successful");
     } else {
       res.status(401).send("Invalid password");
