@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+model User {
+  id                   String  @id @unique @default(cuid())
+  username             String  @unique
+  password             String
+  role                 role    @default(USER)
+  participating_groups Group[] @relation("participants")
+  admin_groups         Group[]  @relation("admins")
+}
+
+model Group {
+  id           String @id @unique @default(cuid())
+  name         String
+  participants User[] @relation("participants")
+  admins       User[] @relation("admins")
+  files        File[] 
+}
+
+model File {
+  id      String  @id @unique @default(cuid())
+  url     String  @unique
+  name    String?
+  Group   Group?  @relation(fields: [groupId], references: [id])
+  groupId String?
+}
+
+enum role {
+  ADMIN
+  USER
+}
