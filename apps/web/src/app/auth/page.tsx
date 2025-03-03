@@ -1,6 +1,5 @@
 "use client";
 import axios from "axios";
-import { redirect } from "next/navigation";
 import { FormEvent, FormEventHandler, useState } from "react";
 
 export default () => {

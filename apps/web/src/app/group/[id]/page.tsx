@@ -7,17 +7,7 @@ import React, {
   FormEvent,
 } from "react";
 import { redirect, useParams } from "next/navigation";
-import {
-  Delete,
-  Home,
-  Menu,
-  MenuSquare,
-  Plus,
-  Search,
-  Trash,
-  Users,
-  X,
-} from "lucide-react";
+import { Home, Menu, Plus, Search, Trash, Users, X } from "lucide-react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
@@ -25,7 +15,7 @@ import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 
 interface File {
   id: Key;
-  name: String;
+  name: string;
   url: string;
 }
 

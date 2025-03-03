@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 interface User {
   id: Key;
-  username: String;
+  username: string;
 }
 
 export default ({ groupId }: { groupId: string | string[] | undefined }) => {
