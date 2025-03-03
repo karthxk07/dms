@@ -43,7 +43,7 @@ authRouter.post("/login", async (req, res) => {
         sameSite: "none",
         secure: true,
       });
-      res.status(200).end("User login successful");
+      res.status(200).send("User login successful");
     } else {
       res.status(401).send("Invalid password");
     }
