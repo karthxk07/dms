@@ -2,7 +2,7 @@
 import axios from "axios";
 import { FormEvent, FormEventHandler, useState } from "react";
 
-export default () => {
+const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,9 +33,9 @@ export default () => {
         throw new Error(await response.statusText);
       }
       window.location.href = "/";
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.log(err);
-      setError(err.message || "Something went wrong");
+      setError((err as Error).message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -112,3 +112,5 @@ export default () => {
     </div>
   );
 };
+
+export default AuthPage;

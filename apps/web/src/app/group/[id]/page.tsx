@@ -25,7 +25,9 @@ const GroupFilesDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<any>(null);
+  const [selectedFile, setSelectedFile] = useState<HTMLInputElement | null>(
+    null
+  );
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState("");
   const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -33,7 +35,7 @@ const GroupFilesDashboard = () => {
 
   useEffect(() => {
     fetchFiles();
-  }, [groupId]);
+  }, [groupId, fetchFiles]);
 
   useEffect(() => {
     if (error) {
@@ -88,73 +90,75 @@ const GroupFilesDashboard = () => {
     }
 
     try {
-      setIsUploading(true);
-      setError("");
+      if (selectedFile) {
+        setIsUploading(true);
+        setError("");
 
-      // Upload to Google Drive
-      const metadata = {
-        name: selectedFile.name,
-        mimeType: selectedFile.type,
-      };
+        // Upload to Google Drive
+        const metadata = {
+          name: selectedFile.name,
+          mimeType: selectedFile.type,
+        };
 
-      const formData = new FormData();
-      formData.append(
-        "metadata",
-        new Blob([JSON.stringify(metadata)], { type: "application/json" })
-      );
-      formData.append("file", selectedFile);
+        const formData = new FormData();
+        formData.append(
+          "metadata",
+          new Blob([JSON.stringify(metadata)], { type: "application/json" })
+        );
+        formData.append("file", selectedFile);
 
-      // Upload file to Google Drive
-      const driveResponse = await fetch(
-        "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${Cookies.get("google_accessToken")}`,
-          },
-          body: formData,
+        // Upload file to Google Drive
+        const driveResponse = await fetch(
+          "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${Cookies.get("google_accessToken")}`,
+            },
+            body: formData,
+          }
+        );
+
+        if (!driveResponse.ok) {
+          throw new Error("Failed to upload to Google Drive");
         }
-      );
 
-      if (!driveResponse.ok) {
-        throw new Error("Failed to upload to Google Drive");
+        const driveResult = await driveResponse.json();
+
+        // Set file permissions
+        await fetch(
+          `https://www.googleapis.com/drive/v3/files/${driveResult.id}/permissions`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${Cookies.get("google_accessToken")}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              role: "reader",
+              type: "anyone",
+            }),
+          }
+        );
+
+        // Add file to your backend
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/group/addFile/${groupId}`,
+          {
+            groupId,
+            fileUrl: `https://drive.google.com/file/d/${driveResult.id}/view`,
+            fileName: selectedFile.name,
+          },
+          { withCredentials: true }
+        );
+
+        // Refresh file list
+        await fetchFiles();
+
+        // Reset form
+        setSelectedFile(null);
+        setIsDialogOpen(false);
       }
-
-      const driveResult = await driveResponse.json();
-
-      // Set file permissions
-      await fetch(
-        `https://www.googleapis.com/drive/v3/files/${driveResult.id}/permissions`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${Cookies.get("google_accessToken")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            role: "reader",
-            type: "anyone",
-          }),
-        }
-      );
-
-      // Add file to your backend
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/group/addFile/${groupId}`,
-        {
-          groupId,
-          fileUrl: `https://drive.google.com/file/d/${driveResult.id}/view`,
-          fileName: selectedFile.name,
-        },
-        { withCredentials: true }
-      );
-
-      // Refresh file list
-      await fetchFiles();
-
-      // Reset form
-      setSelectedFile(null);
-      setIsDialogOpen(false);
     } catch (error) {
       console.error("Error uploading file:", error);
       setError("Failed to upload file. Please try again.");
@@ -211,7 +215,7 @@ const GroupFilesDashboard = () => {
                   type="file"
                   onChange={(e) => setSelectedFile(e.target.files![0])}
                   className="w-full p-2 border rounded-lg"
-                />
+                />{" "}
               </div>
 
               {!Cookies.get("google_accessToken") && (

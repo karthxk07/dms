@@ -1,5 +1,5 @@
 import { useState, useEffect, Key } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { UserIcon, XCircle, UserPlus, Check, Shield } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -8,10 +8,14 @@ interface User {
   username: string;
 }
 
-export default ({ groupId }: { groupId: string | string[] | undefined }) => {
+const ParticipantSidebar = ({
+  groupId,
+}: {
+  groupId: string | string[] | undefined;
+}) => {
   const [participants, setParticipants] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<String | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [removingUserId, setRemovingUserId] = useState<Key | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -72,7 +76,7 @@ export default ({ groupId }: { groupId: string | string[] | undefined }) => {
       setParticipants(participants.filter((user) => user.id !== userId));
       toast.success("User removed successfully");
     } catch (err: unknown) {
-      setError("Failed to remove user, " + (err as any).response?.data);
+      setError("Failed to remove user, " + (err as AxiosError).response?.data);
     } finally {
       setRemovingUserId(null);
     }
@@ -224,7 +228,7 @@ const AddUserModal = ({
     } catch (err) {
       console.error("Failed to add user:", err);
       toast.error(
-        `Failed to add user: ${(err as any).response?.data || "Unknown error"}`
+        `Failed to add user: ${(err as AxiosError).response?.data || "Unknown error"}`
       );
     } finally {
       setAddingUser(false);
@@ -352,3 +356,5 @@ const AddUserModal = ({
     </div>
   );
 };
+
+export default ParticipantSidebar;

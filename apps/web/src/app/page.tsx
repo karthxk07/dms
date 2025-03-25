@@ -11,8 +11,9 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { redirect, useRouter } from "next/navigation";
+import { AxiosError } from "axios";
 
-export default () => {
+const App = () => {
   interface Group {
     id: Key;
     name: string;
@@ -86,8 +87,11 @@ export default () => {
       setAllGroups([...allGroups, response.data as Group]);
       setNewGroupName("");
       setIsDialogOpen(false);
-    } catch (error: any) {
-      setError(error.response?.data?.message || "Failed to create group");
+    } catch (error: unknown) {
+      setError(
+        (error as AxiosError).response?.data?.message ||
+          "Failed to create group"
+      );
     } finally {
       setIsCreating(false);
     }
@@ -311,3 +315,5 @@ export default () => {
     </div>
   );
 };
+
+export default App;

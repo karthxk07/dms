@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/axios": "^0.9.36",
     "axios": "^1.7.9",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.475.0",
