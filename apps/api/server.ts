@@ -15,6 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
+    origin: "https://dms-web-eight.vercel.app",
     credentials: true,
   })
 );
