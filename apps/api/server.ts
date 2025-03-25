@@ -15,7 +15,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "*", // Your Astro app's URL
     credentials: true,
   })
 );
