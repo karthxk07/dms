@@ -9,9 +9,8 @@ import {
   X,
   LogOut,
 } from "lucide-react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { redirect, useRouter } from "next/navigation";
-import { AxiosError } from "axios";
 
 const App = () => {
   interface Group {
@@ -89,8 +88,8 @@ const App = () => {
       setIsDialogOpen(false);
     } catch (error: unknown) {
       setError(
-        (error as AxiosError).response?.data?.message ||
-          "Failed to create group"
+        ((error as AxiosError).response?.data as { message?: string })
+          ?.message || "Failed to create group"
       );
     } finally {
       setIsCreating(false);

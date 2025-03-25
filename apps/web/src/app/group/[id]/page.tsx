@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 
-interface File {
+interface FileType {
   id: Key;
   name: string;
   url: string;
@@ -21,13 +21,11 @@ interface File {
 
 const GroupFilesDashboard = () => {
   const { id: groupId } = useParams();
-  const [files, setFiles] = useState<File[] | null>([]);
+  const [files, setFiles] = useState<FileType[] | null>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<HTMLInputElement | null>(
-    null
-  );
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState("");
   const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -35,7 +33,7 @@ const GroupFilesDashboard = () => {
 
   useEffect(() => {
     fetchFiles();
-  }, [groupId, fetchFiles]);
+  }, [groupId]);
 
   useEffect(() => {
     if (error) {
@@ -59,7 +57,7 @@ const GroupFilesDashboard = () => {
         `${process.env.NEXT_PUBLIC_SERVER_URL}/group/getfiles/${groupId}`,
         { withCredentials: true }
       );
-      setFiles(response.data as File[]);
+      setFiles(response.data as FileType[]);
     } catch (error) {
       console.error("Error fetching files:", error);
     } finally {
@@ -215,7 +213,7 @@ const GroupFilesDashboard = () => {
                   type="file"
                   onChange={(e) => setSelectedFile(e.target.files![0])}
                   className="w-full p-2 border rounded-lg"
-                />{" "}
+                />
               </div>
 
               {!Cookies.get("google_accessToken") && (
