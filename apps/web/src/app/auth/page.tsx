@@ -32,6 +32,7 @@ const AuthPage = () => {
       if (!response.status.toString().startsWith("2")) {
         throw new Error(await response.statusText);
       }
+
       window.location.href = "/";
     } catch (err: unknown) {
       console.log(err);

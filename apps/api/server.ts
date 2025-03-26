@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://dms-web-eight.vercel.app",
+    origin: process.env.ALLOWED_ORIGINS?.split(","),
     credentials: true,
   })
 );
