@@ -2,9 +2,9 @@
   "name": "api",
   "version": "1.0.0",
   "description": "API server for the DMS",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.ts"
   },
   "keywords": [
     "server"

@@ -3,6 +3,10 @@ import type { NextRequest } from "next/server";
 import axios from "axios";
 
 export async function middleware(request: NextRequest) {
+  
+  console.log("here");  
+ console.log(request.headers.get("cookie")); 
+
   try {
     // Fetch user authentication status
     const response = await axios.get(
@@ -13,7 +17,6 @@ export async function middleware(request: NextRequest) {
         },
       }
     );
-
     if (response.status === 200) {
       // User is authenticated, redirect away from auth page if necessary
       if (request.nextUrl.pathname === "/auth") {
@@ -22,7 +25,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
   } catch (error) {
-    console.error("Authentication middleware error:", error);
+    console.error("Authentication middleware error:",error);
   }
 
   // If user is not authenticated, redirect to auth page
