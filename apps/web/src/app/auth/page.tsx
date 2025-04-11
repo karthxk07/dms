@@ -36,8 +36,7 @@ const AuthPage = () => {
       console.log(err);
       setError((err as Error).message || "Something went wrong");
     } finally {
-     window.location.href = "/";
-      setLoading(false);
+     setLoading(false);
     }
   };
 
