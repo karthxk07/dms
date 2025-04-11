@@ -4,12 +4,10 @@ import axios from "axios";
 
 export async function middleware(request: NextRequest) {
   
-  console.log("here");  
- console.log(request.headers.get("cookie")); 
-
   try {
     // Fetch user authentication status
-    const response = await axios.get(
+    if(request.headers.get("cookie"){
+      const response = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/user/getUser`,
       {
         headers: {
@@ -23,6 +21,7 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL("/", request.url)); // Redirect to home/dashboard
       }
       return NextResponse.next();
+    }
     }
   } catch (error) {
     console.error("Authentication middleware error:",error);
