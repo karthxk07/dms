@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
   
   try {
     // Fetch user authentication status
-    if(request.headers.get("cookie"){
+    if(request.headers.get("cookie")){
       const response = await axios.get(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/user/getUser`,
       {
