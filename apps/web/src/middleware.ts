@@ -16,9 +16,10 @@ export async function middleware(request: NextRequest) {
       }
     );
     if (response.status === 200) {
-      // User is authenticated, redirect away from auth page if necessary
+        // User is authenticated, redirect away from auth page if necessary
       if (request.nextUrl.pathname === "/auth") {
-        return NextResponse.redirect(new URL("/", request.url)); // Redirect to home/dashboard
+          console.log("here");
+          return NextResponse.redirect(new URL("/", request.url)); // Redirect to home/dashboard
       }
       return NextResponse.next();
     }
