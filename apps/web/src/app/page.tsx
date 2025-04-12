@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import axios, { AxiosError } from "axios";
 import { redirect, useRouter } from "next/navigation";
-import {isAuth} from "../lib/authMiddleware.ts"
+import {isAuth} from "../lib/authMiddleware"
 
 const App = () => {
 
