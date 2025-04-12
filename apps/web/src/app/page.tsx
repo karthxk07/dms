@@ -11,8 +11,12 @@ import {
 } from "lucide-react";
 import axios, { AxiosError } from "axios";
 import { redirect, useRouter } from "next/navigation";
+import {isAuth} from "../lib/authMiddleware.ts"
 
 const App = () => {
+
+  isAuth();
+
   interface Group {
     id: Key;
     name: string;

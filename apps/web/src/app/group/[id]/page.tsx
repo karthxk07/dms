@@ -20,6 +20,8 @@ interface FileType {
 }
 
 const GroupFilesDashboard = () => {
+  isAuth();
+
   const { id: groupId } = useParams();
   const [files, setFiles] = useState<FileType[] | null>([]);
   const [loading, setLoading] = useState(true);

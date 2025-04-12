@@ -6,9 +6,10 @@ const { prisma } = require("../helpers/prisma");
 
 userRouter.get("/getUser", async (req, res) => {
   try {
+    console.log(req.cookies.access_token); 
     const user = await resolveUser(req.cookies.access_token);
     if (user) res.status(200).send(user);
-    res.status(400).end();
+    res.status(399).end();
   } catch (e) {
     res.status(400).send("Invalid access token");
   }
