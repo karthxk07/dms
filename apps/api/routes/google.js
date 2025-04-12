@@ -32,8 +32,7 @@ gapiRouter.get("/auth/google", (req, res) => {
 });
 
 // Callback endpoint
-gapiRouter.get("/callback", async (req, res) => {
-  console.log("Received callback");
+gapiRouter.get("/callback", async (req, res) => { console.log("Received callback");
   console.log("Session data:", req.session);
 
   const code = req.query.code;
@@ -49,7 +48,7 @@ gapiRouter.get("/callback", async (req, res) => {
     });
 
     res.cookie("google_accessToken", googleaccessToken);
-    res.redirect("http://localhost:3000");
+    res.redirect("https://dms-web-eight.vercel.app/");
   } catch (e) {
     res.status(400).send("Authorization error");
   }
