@@ -15,11 +15,11 @@ export async function middleware(request: NextRequest) {
         headers: {
           Cookie: request.headers.get("cookie") || "",
         },
-      },
-      {
-          withCredentials: true,
+      withCredentials: true,
+
       }
-    );
+     
+           );
     console.log("Response:",response);
 
       if (response.status === 200) {
