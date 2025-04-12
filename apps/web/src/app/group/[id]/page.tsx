@@ -53,6 +53,8 @@ const GroupFilesDashboard = () => {
     }
   }, [error]);
 
+  console.log("cookies" , Cookies.get());
+
   const fetchFiles = async () => {
     try {
       setLoading(true);
