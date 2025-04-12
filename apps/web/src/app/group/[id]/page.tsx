@@ -34,6 +34,7 @@ const GroupFilesDashboard = () => {
   const [error, setError] = useState("");
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showParticipants, setShowParticipants] = useState<boolean>(false);
+  const [googleAccessToken , setGoogleAccessToken] = useState<string>("");
 
   useEffect(() => {
     fetchFiles();
@@ -54,8 +55,11 @@ const GroupFilesDashboard = () => {
     }
   }, [error]);
 
-  get_googleToken().then((res)=>{console.log("cookies" , res)});
-
+  useEffect(() => {
+get_googleToken().then((res)=>{setGoogleAccessToken(get_googleToken)});
+    
+  }, [])
+  
   const fetchFiles = async () => {
     try {
       setLoading(true);
@@ -117,7 +121,7 @@ const GroupFilesDashboard = () => {
           {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${Cookies.get("google_accessToken")}`,
+              Authorization: `Bearer ${googleAccessToken}`,
             },
             body: formData,
           }
@@ -135,7 +139,7 @@ const GroupFilesDashboard = () => {
           {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${Cookies.get("google_accessToken")}`,
+              Authorization: `Bearer ${googleAccessToken}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -222,7 +226,7 @@ const GroupFilesDashboard = () => {
                 />
               </div>
 
-              {!Cookies.get("google_accessToken") && (
+              {googleAccessToken!="" && (
                 <button
                   type="button"
                   onClick={initiateGoogleAuth}
@@ -244,7 +248,7 @@ const GroupFilesDashboard = () => {
                 </button>
                 <button
                   type="submit"
-                  disabled={isUploading || !Cookies.get("google_accessToken")}
+                  disabled={isUploading || googleAccessToken!=""}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isUploading ? "Uploading..." : "Upload"}
