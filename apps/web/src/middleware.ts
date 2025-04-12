@@ -3,7 +3,9 @@ import type { NextRequest } from "next/server";
 import axios from "axios";
 
 export async function middleware(request: NextRequest) {
-  
+
+  console.log(request.headers.get("cookie"));
+
   try {
     // Fetch user authentication status
     if(request.headers.get("cookie")){
