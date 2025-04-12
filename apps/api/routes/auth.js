@@ -40,7 +40,7 @@ authRouter.post("/login", async (req, res) => {
       console.log("saf");
       res.cookie("access_token", accessToken,{
         httpOnly : true,
-        sameSite : None,
+        sameSite : "None",
         secure : true
       });
       res.status(200).send("User login successful");
