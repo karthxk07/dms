@@ -9,7 +9,6 @@ import React, {
 import { redirect, useParams } from "next/navigation";
 import { Home, Menu, Plus, Search, Trash, Users, X } from "lucide-react";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 import {isAuth} from "../../../lib/authMiddleware"
@@ -56,7 +55,7 @@ const GroupFilesDashboard = () => {
   }, [error]);
 
   useEffect(() => {
-get_googleToken().then((res)=>{setGoogleAccessToken(get_googleToken)});
+get_googleToken().then((res)=>{setGoogleAccessToken(res)});
     
   }, [])
   
