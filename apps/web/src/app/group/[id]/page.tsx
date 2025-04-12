@@ -55,7 +55,7 @@ const GroupFilesDashboard = () => {
   }, [error]);
 
   useEffect(() => {
-get_googleToken().then((res)=>{setGoogleAccessToken(res==undefined ? "" | res)});
+get_googleToken().then((res)=>{setGoogleAccessToken(res==undefined ? "" :  res)});
     
   }, [])
   
