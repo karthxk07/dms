@@ -15,6 +15,9 @@ export async function middleware(request: NextRequest) {
         headers: {
           Cookie: request.headers.get("cookie") || "",
         },
+      },
+      {
+          withCredentials: true,
       }
     );
     console.log("Response:",response);
