@@ -54,7 +54,7 @@ const GroupFilesDashboard = () => {
     }
   }, [error]);
 
-  console.log("cookies" , get_googleToken());
+  get_googleToken().then((res)=>{console.log("cookies" , res)});
 
   const fetchFiles = async () => {
     try {
