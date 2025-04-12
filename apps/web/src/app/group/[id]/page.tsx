@@ -12,6 +12,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
+import {isAuth} from "../lib/authMiddleware.ts"
 
 interface FileType {
   id: Key;
