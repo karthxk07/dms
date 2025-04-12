@@ -13,6 +13,7 @@ import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 import {isAuth} from "../../../lib/authMiddleware"
+import { useCookies } from "next-client-cookies";
 
 interface FileType {
   id: Key;
@@ -23,6 +24,7 @@ interface FileType {
 const GroupFilesDashboard = () => {
   isAuth();
 
+  const cookies = useCookies();
   const { id: groupId } = useParams();
   const [files, setFiles] = useState<FileType[] | null>([]);
   const [loading, setLoading] = useState(true);
@@ -53,7 +55,7 @@ const GroupFilesDashboard = () => {
     }
   }, [error]);
 
-  console.log("cookies" , Cookies.get());
+  console.log("cookies" , cookies.get('google_accessToken'));
 
   const fetchFiles = async () => {
     try {
@@ -112,7 +114,7 @@ const GroupFilesDashboard = () => {
 
         // Upload file to Google Drive
         const driveResponse = await fetch(
-          "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+          "https://www.googleap is.com/upload/drive/v3/files?uploadType=multipart",
           {
             method: "POST",
             headers: {
