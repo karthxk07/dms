@@ -39,7 +39,7 @@ authRouter.post("/login", async (req, res) => {
       );
       console.log("saf");
       res.cookie("access_token", accessToken, {
-        httpOnly: true,
+        
         sameSite: "none",
         secure : true,      
       });
