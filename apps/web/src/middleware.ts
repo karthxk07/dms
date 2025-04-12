@@ -17,7 +17,11 @@ export async function middleware(request: NextRequest) {
         },
       }
     );
-    if (response.status === 200) {
+    console.log("Response:",response);
+
+      if (response.status === 200) {
+        console.log("Good response");
+        console.log("pathname :" , request.nextUrl.pathname);
         // User is authenticated, redirect away from auth page if necessary
       if (request.nextUrl.pathname === "/auth") {
           console.log("here");

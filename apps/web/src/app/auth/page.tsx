@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import { FormEvent, FormEventHandler, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -8,6 +9,7 @@ const AuthPage = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (
     e: FormEvent
@@ -36,7 +38,7 @@ const AuthPage = () => {
       console.log(err);
       setError((err as Error).message || "Something went wrong");
     } finally {
-     window.location.href = "/";
+      router.push("/");
       setLoading(false);
     }
   };
