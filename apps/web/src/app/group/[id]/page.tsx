@@ -13,7 +13,6 @@ import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 import {isAuth} from "../../../lib/authMiddleware"
-import { useCookies } from "next-client-cookies";
 import {get_googleToken} from "./actions";
 
 interface FileType {
@@ -25,7 +24,6 @@ interface FileType {
 const GroupFilesDashboard = () => {
   isAuth();
 
-  const cookies = useCookies();
   const { id: groupId } = useParams();
   const [files, setFiles] = useState<FileType[] | null>([]);
   const [loading, setLoading] = useState(true);
