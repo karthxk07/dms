@@ -14,6 +14,7 @@ import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 import {isAuth} from "../../../lib/authMiddleware"
 import { useCookies } from "next-client-cookies";
+import {get_googleToken} from "./actions";
 
 interface FileType {
   id: Key;
@@ -55,7 +56,7 @@ const GroupFilesDashboard = () => {
     }
   }, [error]);
 
-  console.log("cookies" , cookies.get('google_accessToken'));
+  console.log("cookies" , get_googleToken());
 
   const fetchFiles = async () => {
     try {
