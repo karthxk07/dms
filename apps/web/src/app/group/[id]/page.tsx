@@ -21,7 +21,7 @@ interface FileType {
   url: string;
 }
 
-const GroupFilesDashboard = ({googleAccessToken} : {googleAccessToken : RequestCookie | undefined}) => {
+export default function GroupFilesDashboard ({googleAccessToken} : {googleAccessToken : string | undefined}) {
   isAuth();
 
 
@@ -228,7 +228,7 @@ const GroupFilesDashboard = ({googleAccessToken} : {googleAccessToken : RequestC
                 />
               </div>
 
-              {googleAccessToken?.value=="" && (
+              {googleAccessToken=="" && (
                 <button
                   type="button"
                   onClick={initiateGoogleAuth}
@@ -250,7 +250,7 @@ const GroupFilesDashboard = ({googleAccessToken} : {googleAccessToken : RequestC
                 </button>
                 <button
                   type="submit"
-                  disabled={isUploading || googleAccessToken?.value==""}
+                  disabled={isUploading || googleAccessToken==""}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isUploading ? "Uploading..." : "Upload"}
@@ -373,5 +373,3 @@ const GroupFilesDashboard = ({googleAccessToken} : {googleAccessToken : RequestC
     </div>
   );
 };
-
-export default GroupFilesDashboard;
