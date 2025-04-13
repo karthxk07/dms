@@ -50,7 +50,8 @@ gapiRouter.get("/callback", async (req, res) => { console.log("Received callback
     res.cookie("google_accessToken", googleaccessToken,{
       sameSite:"none",
       secure:true,
-      httpOnly:false
+      httpOnly:false,
+      domain:".onrender.com"
     });
     res.redirect("https://dms-web-eight.vercel.app/");
   } catch (e) {
