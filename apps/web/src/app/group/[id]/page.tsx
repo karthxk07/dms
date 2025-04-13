@@ -20,14 +20,14 @@ interface FileType {
   url: string;
 }
 
-export default async function GroupFilesDashboard ({
+export default  function GroupFilesDashboard ({
   params,
 }: {
-  params: Promise<{ googleAccessToken: string }>
+  params:  {googleAccessToken: string} 
 }) {
   isAuth();
 
-  const {googleAccessToken} = await params;
+  const {googleAccessToken} = params ;
 
   console.log(Cookies.get('google_accessToken'));
 
