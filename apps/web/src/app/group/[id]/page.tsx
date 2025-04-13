@@ -55,9 +55,12 @@ const GroupFilesDashboard = () => {
   }, [error]);
 
   useEffect(() => {
-get_googleToken().then((res)=>{setGoogleAccessToken(res==undefined ? "" :  res)});
-    
-  }, [])
+    get_googleToken().then((res)=>{setGoogleAccessToken(res==undefined ? "" :  res)});
+  }, [googleAccessToken]);
+
+  useEffect(()=>{
+    console.log("accesToken :", googleAccessToken);
+  },[googleAccessToken])
   
   const fetchFiles = async () => {
     try {
@@ -247,7 +250,7 @@ get_googleToken().then((res)=>{setGoogleAccessToken(res==undefined ? "" :  res)}
                 </button>
                 <button
                   type="submit"
-                  disabled={isUploading || googleAccessToken!=""}
+                  disabled={isUploading || googleAccessToken==""}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isUploading ? "Uploading..." : "Upload"}
