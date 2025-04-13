@@ -51,7 +51,6 @@ gapiRouter.get("/callback", async (req, res) => { console.log("Received callback
       sameSite:"none",
       secure:true,
       httpOnly:false,
-      domain:"dms-frontend-kk36.onrender.com/"
     });
     res.redirect("https://dms-frontend-kk36.onrender.com/");
   } catch (e) {
