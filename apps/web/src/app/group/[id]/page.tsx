@@ -11,8 +11,7 @@ import { Home, Menu, Plus, Search, Trash, Users, X } from "lucide-react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
-import {isAuth} from "../../../lib/authMiddleware"
-import Cookies from "js-cookie";
+import {isAuth} from "../../../lib/authMiddleware";
 import { useGoogleAccessToken } from "./context/useGoogleAccessToken";
 
 interface FileType {
