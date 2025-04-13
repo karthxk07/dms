@@ -22,8 +22,6 @@ interface FileType {
 export default function GroupFilesDashboard () {
   isAuth();
   
-  const googleAccessToken = localStorage.getItem("google_accessToken");
-
 
   
 
@@ -61,8 +59,8 @@ export default function GroupFilesDashboard () {
 
 
   useEffect(()=>{
-    console.log("accesToken :", googleAccessToken);
-  },[googleAccessToken])
+    console.log(localStorage.getItem("google_accessToken"));
+  },[])
   
   const fetchFiles = async () => {
     try {
@@ -125,7 +123,7 @@ export default function GroupFilesDashboard () {
           {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${googleAccessToken}`,
+              Authorization: `Bearer ${localStorage.getItem("google_accessToken")}`,
             },
             body: formData,
           }
@@ -143,7 +141,7 @@ export default function GroupFilesDashboard () {
           {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${googleAccessToken}`,
+              Authorization: `Bearer ${localStorage.getItem("google_accessToken")}`,
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
@@ -230,7 +228,7 @@ export default function GroupFilesDashboard () {
                 />
               </div>
 
-              {googleAccessToken && (
+              {localStorage.getItem("google_accessToken")==null && (
                 <button
                   type="button"
                   onClick={initiateGoogleAuth}
@@ -252,7 +250,7 @@ export default function GroupFilesDashboard () {
                 </button>
                 <button
                   type="submit"
-                  disabled={isUploading || googleAccessToken==null}
+                  disabled={isUploading || localStorage.getItem("google_accessToken")==null}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isUploading ? "Uploading..." : "Upload"}
