@@ -22,4 +22,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 
+export const runtime = 'nodejs'; // ensure it's not edge
+
 
