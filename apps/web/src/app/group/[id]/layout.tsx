@@ -2,14 +2,27 @@ import GroupFilesDashboard from "./page";
 import { cookies } from "next/headers";
 
 
-export default async function GroupLayout(){
+// app/layout.tsx
+import './globals.css';
+import GoogleAccessTokenProviderWrapper from "./components/useGoogleAccessTokenContextWrapper";
 
-    const cookiesStore = await cookies();
-    const googleAccessToken = cookiesStore.get("google_accessToken")?.value ;
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Simulate server-side data fetching
 
-    const params = googleAccessToken ? {googleAccessToken} : {googleAccessToken : ""};
+  const cookiesStore = await cookies();
+  let googleAccessToken = cookiesStore.get("google_accessToken")?.value ;
 
-return <>
-<GroupFilesDashboard params={params}/>
-</>
+  googleAccessToken  = googleAccessToken ? googleAccessToken : "";
+  
+
+  return (
+    <html>
+      <body>
+        <GoogleAccessTokenProviderWrapper props={{googleAccessToken}}>{children}</GoogleAccessTokenProviderWrapper>
+      </body>
+    </html>
+  );
 }
+
+
+
