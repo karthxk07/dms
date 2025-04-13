@@ -1,5 +1,8 @@
 # 📄 Document Management System
 
+![image](https://github.com/user-attachments/assets/9a9005ee-84a6-4c9b-a07c-b53b59455449)
+
+
 A secure, role-based document management system built with Next.js, Node.js, PostgreSQL, and Google Drive integration. Users can create groups, upload documents, and manage participant access via a clean interface and robust backend.
 
 ## 🚀 Features
