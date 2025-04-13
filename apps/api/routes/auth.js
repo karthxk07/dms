@@ -37,7 +37,6 @@ authRouter.post("/login", async (req, res) => {
         { userId: user.id },
         process.env.AUTH_SECRET
       );
-      console.log("saf");
       res.cookie("access_token", accessToken,{
         httpOnly : true,
         sameSite : "None",
@@ -54,7 +53,12 @@ authRouter.post("/login", async (req, res) => {
 });
 
 authRouter.get("/signout", (req, res) => {
-  res.clearCookie("access_token");
+  res.clearCookie("access_token",{
+
+    httpOnly : true,
+    sameSite : "None",
+    secure : true
+  });
   res.end();
 });
 

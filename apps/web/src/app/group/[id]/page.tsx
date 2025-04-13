@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { redirect, useParams } from "next/navigation";
 import { Home, Menu, Plus, Search, Trash, Users, X } from "lucide-react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 import {isAuth} from "../../../lib/authMiddleware";
@@ -118,38 +118,46 @@ export default function GroupFilesDashboard () {
         formData.append("file", selectedFile);
 
         // Upload file to Google Drive
-        const driveResponse = await fetch(
-          "https://www.googleap is.com/upload/drive/v3/files?uploadType=multipart",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("google_accessToken")}`,
-            },
-            body: formData,
-          }
-        );
+                
+        let driveResult;
+        try {
+          const driveResponse = await axios.post(
+            'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("google_accessToken")}`,
+                'Content-Type': 'multipart/form-data'
+              }
+            }
+          );
+        
+          // Successful response
+          console.log('Upload success:', driveResponse.data);
 
-        if (!driveResponse.ok) {
-          throw new Error("Failed to upload to Google Drive");
+          driveResult = await driveResponse.data;
+
+        } catch (error : unknown) {
+          // Handle error
+          console.error('Upload failed:', (error as AxiosError).response?.data || (error as AxiosError).message);
         }
-
-        const driveResult = await driveResponse.json();
-
         // Set file permissions
-        await fetch(
-          `https://www.googleapis.com/drive/v3/files/${driveResult.id}/permissions`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("google_accessToken")}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              role: "reader",
-              type: "anyone",
-            }),
-          }
-        );
+      
+
+await axios.post(
+  `https://www.googleapis.com/drive/v3/files/${driveResult.id}/permissions`,
+  {
+    role: "reader",
+    type: "anyone"
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("google_accessToken")}`,
+      "Content-Type": "application/json"
+    }
+  }
+);
+
 
         // Add file to your backend
         await axios.post(

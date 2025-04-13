@@ -74,11 +74,11 @@ const App = () => {
       await axios.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/auth/signout`, {
         withCredentials: true,
       });
-
+      
       localStorage.removeItem("google_accessToken")
 
       // Redirect to homepage after successful signout
-      router.push("/");
+      router.push("/auth");
     } catch (error) {
       console.error("Error signing out:", error);
       // Still redirect even if there's an error
