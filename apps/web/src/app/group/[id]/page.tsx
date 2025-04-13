@@ -20,7 +20,7 @@ interface FileType {
   url: string;
 }
 
-export default function GroupFilesDashboard ({googleAccessToken} : {googleAccessToken : string | undefined}) {
+export default function GroupFilesDashboard ({googleAccessToken} : {googleAccessToken : string }) {
   isAuth();
 
 
