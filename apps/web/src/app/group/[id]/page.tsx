@@ -12,7 +12,6 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 import {isAuth} from "../../../lib/authMiddleware";
-import { useGoogleAccessToken } from "./context/useGoogleAccessToken";
 
 interface FileType {
   id: Key;
