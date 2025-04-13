@@ -13,7 +13,6 @@ import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 import {isAuth} from "../../../lib/authMiddleware"
 import Cookies from "js-cookie";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 interface FileType {
   id: Key;
