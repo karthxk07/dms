@@ -8,8 +8,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const cookiesStore = await cookies();
   let googleAccessToken = cookiesStore.get("google_accessToken")?.value ;
 
-  googleAccessToken  = googleAccessToken!=undefined ? googleAccessToken : "";
   console.log("server:",googleAccessToken);
+  googleAccessToken  = googleAccessToken!=undefined ? googleAccessToken : "";
   
 
   return (
