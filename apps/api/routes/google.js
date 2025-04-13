@@ -47,7 +47,11 @@ gapiRouter.get("/callback", async (req, res) => { console.log("Received callback
       access_token: googleaccessToken,
     });
 
-    res.cookie("google_accessToken", googleaccessToken);
+    res.cookie("google_accessToken", googleaccessToken,{
+      sameSite:"none",
+      secure:false,
+      httpOnly:false
+    });
     res.redirect("https://dms-web-eight.vercel.app/");
   } catch (e) {
     res.status(400).send("Authorization error");
