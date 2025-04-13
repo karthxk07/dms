@@ -1,9 +1,5 @@
-import GroupFilesDashboard from "./page";
+
 import { cookies } from "next/headers";
-
-
-// app/layout.tsx
-import './globals.css';
 import GoogleAccessTokenProviderWrapper from "./components/useGoogleAccessTokenContextWrapper";
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
