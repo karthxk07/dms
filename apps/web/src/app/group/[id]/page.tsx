@@ -12,8 +12,8 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 import {isAuth} from "../../../lib/authMiddleware"
-import {get_googleToken} from "./actions";
 import Cookies from "js-cookie";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 interface FileType {
   id: Key;
@@ -21,7 +21,7 @@ interface FileType {
   url: string;
 }
 
-const GroupFilesDashboard = () => {
+const GroupFilesDashboard = ({googleAccessToken} : {googleAccessToken : RequestCookie | undefined}) => {
   isAuth();
 
 
@@ -37,7 +37,6 @@ const GroupFilesDashboard = () => {
   const [error, setError] = useState("");
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const [showParticipants, setShowParticipants] = useState<boolean>(false);
-  const [googleAccessToken , setGoogleAccessToken] = useState<string>("");
 
   useEffect(() => {
     fetchFiles();
@@ -58,9 +57,6 @@ const GroupFilesDashboard = () => {
     }
   }, [error]);
 
-  useEffect(() => {
-    get_googleToken().then((res)=>{setGoogleAccessToken(res==undefined ? "" :  res)});
-  }, [googleAccessToken]);
 
   useEffect(()=>{
     console.log("accesToken :", googleAccessToken);
@@ -232,7 +228,7 @@ const GroupFilesDashboard = () => {
                 />
               </div>
 
-              {googleAccessToken=="" && (
+              {googleAccessToken?.value=="" && (
                 <button
                   type="button"
                   onClick={initiateGoogleAuth}
@@ -254,7 +250,7 @@ const GroupFilesDashboard = () => {
                 </button>
                 <button
                   type="submit"
-                  disabled={isUploading || googleAccessToken==""}
+                  disabled={isUploading || googleAccessToken?.value==""}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isUploading ? "Uploading..." : "Upload"}
