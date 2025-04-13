@@ -10,6 +10,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   googleAccessToken  = googleAccessToken ? googleAccessToken : "";
   
+  console.log(googleAccessToken);
 
   return (
     <html>
