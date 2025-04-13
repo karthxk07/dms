@@ -13,6 +13,7 @@ import { toast, ToastContainer } from "react-toastify";
 import ParticipantsSidebar from "@/app/components/group/ParticipantsSidebar";
 import {isAuth} from "../../../lib/authMiddleware"
 import {get_googleToken} from "./actions";
+import Cookies from "js-cookie";
 
 interface FileType {
   id: Key;
@@ -22,6 +23,9 @@ interface FileType {
 
 const GroupFilesDashboard = () => {
   isAuth();
+
+
+  console.log(Cookies.get('google_accessToken'));
 
   const { id: groupId } = useParams();
   const [files, setFiles] = useState<FileType[] | null>([]);
