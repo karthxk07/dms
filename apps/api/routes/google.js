@@ -53,7 +53,7 @@ gapiRouter.get("/callback", async (req, res) => { console.log("Received callback
       httpOnly:false,
       domain:".onrender.com"
     });
-    res.redirect("https://dms-web-eight.vercel.app/");
+    res.redirect("https://dms-frontend-kk36.onrender.com/");
   } catch (e) {
     res.status(400).send("Authorization error");
   }
