@@ -22,6 +22,7 @@ const App = () => {
     name: string;
   }
 
+
   const router = useRouter();
   const [allGroups, setAllGroups] = useState<Group[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,6 +38,18 @@ const App = () => {
   useEffect(() => {
     fetchGroups();
   }, []);
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("accessToken");
+  
+    if (token) {
+      localStorage.setItem("google_accessToken", token);
+      // Optionally clear it from URL
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  }, []);
+  
 
   const fetchGroups = async () => {
     try {

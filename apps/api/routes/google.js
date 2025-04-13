@@ -47,12 +47,9 @@ gapiRouter.get("/callback", async (req, res) => { console.log("Received callback
       access_token: googleaccessToken,
     });
 
-    res.cookie("google_accessToken", googleaccessToken,{
-      sameSite:"none",
-      secure:true,
-      httpOnly:false,
-    });
-    res.redirect("https://dms-frontend-kk36.onrender.com/");
+    
+    res.redirect(`https://dms-frontend-kk36.onrender.com/?accessToken=${googleaccessToken}`);
+
   } catch (e) {
     res.status(400).send("Authorization error");
   }

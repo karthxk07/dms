@@ -22,8 +22,11 @@ interface FileType {
 
 export default function GroupFilesDashboard () {
   isAuth();
+  
+  const googleAccessToken = localStorage.getItem("google_accessToken");
 
-  const googleAccessToken =  useGoogleAccessToken();
+
+  
 
   console.log("document " ,document.cookie);
 
