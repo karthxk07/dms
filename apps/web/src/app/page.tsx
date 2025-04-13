@@ -75,6 +75,8 @@ const App = () => {
         withCredentials: true,
       });
 
+      localStorage.removeItem("google_accessToken")
+
       // Redirect to homepage after successful signout
       router.push("/");
     } catch (error) {
