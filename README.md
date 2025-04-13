@@ -22,10 +22,13 @@ A secure, role-based document management system built with Next.js, Node.js, Pos
 
 ## 🧪 Local Development Setup
 
+0.  **Fork the repo**
+    Fork the repo locally
+
 1.  **Clone the repository**
     ```bash
-    git clone [https://github.com/yourusername/document-management-system.git](https://github.com/yourusername/document-management-system.git)
-    cd document-management-system
+    git clone https://github.com/yourusername/dms.git
+    cd dms
     ```
 
 2.  **Install dependencies**
