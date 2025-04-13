@@ -26,7 +26,7 @@ export default function GroupFilesDashboard () {
 
   const googleAccessToken =  useGoogleAccessToken();
 
-  console.log(Cookies.get('google_accessToken'));
+  console.log("document " ,document.cookie);
 
   const { id: groupId } = useParams();
   const [files, setFiles] = useState<FileType[] | null>([]);
