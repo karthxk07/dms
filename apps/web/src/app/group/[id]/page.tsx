@@ -21,7 +21,7 @@ interface FileType {
   url: string;
 }
 
-export default async function GroupFilesDashboard () {
+export default function GroupFilesDashboard () {
   isAuth();
 
   const googleAccessToken =  useGoogleAccessToken();
