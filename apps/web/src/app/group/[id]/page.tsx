@@ -225,7 +225,7 @@ get_googleToken().then((res)=>{setGoogleAccessToken(res==undefined ? "" :  res)}
                 />
               </div>
 
-              {googleAccessToken!="" && (
+              {googleAccessToken=="" && (
                 <button
                   type="button"
                   onClick={initiateGoogleAuth}
