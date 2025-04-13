@@ -79,7 +79,7 @@ export default function GroupFilesDashboard () {
 
   const initiateGoogleAuth = () => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/gapi/auth/google`)
+      .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/gapi/auth/google`,{withCredentials : true})
       .then((res) => {
         console.log(res);
         window.location.href = res.data as string;
